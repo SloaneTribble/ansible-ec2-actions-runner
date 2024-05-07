@@ -11,10 +11,6 @@
 
   tasks:
 
-    - name: Fetch local IP address
-      set_fact:
-        local_ip: "{{ ansible_ssh_host }}/32"
-
     - name: Create security group
       amazon.aws.ec2_group:
         profile: "{{ profile }}"
@@ -25,6 +21,7 @@
           - proto: tcp
             ports:
               - 22
+            # hard coded IP not ideal
             cidr_ip: 98.208.42.143/32
         state: present
         tags:
